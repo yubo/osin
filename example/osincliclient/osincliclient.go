@@ -6,9 +6,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/RangelReale/osin"
-	"github.com/RangelReale/osin/example"
-	"github.com/RangelReale/osincli"
+	"github.com/yubo/osin"
+	"github.com/yubo/osin/example"
+	"github.com/yubo/osincli"
 	"net/http"
 )
 

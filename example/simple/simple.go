@@ -5,10 +5,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/RangelReale/osin"
-	"github.com/RangelReale/osin/example"
+	"github.com/yubo/osin"
+	"github.com/yubo/osin/example"
 	"net/http"
 	"net/url"
+)
+
+const (
+	CLIENT_ID    = "1234"
+	APPAUTH_CODE = "http://localhost:14000/appauth/code"
 )
 
 func main() {
@@ -65,7 +70,9 @@ func main() {
 	// Application home endpoint
 	http.HandleFunc("/app", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("<html><body>"))
-		w.Write([]byte(fmt.Sprintf("<a href=\"/authorize?response_type=code&client_id=1234&state=xyz&scope=everything&redirect_uri=%s\">Login</a><br/>", url.QueryEscape("http://localhost:14000/appauth/code"))))
+		w.Write([]byte(fmt.Sprintf("<a href=\"/authorize?response_type=code&client_id=%s&state=xyz&scope=everything&redirect_uri=%s\">Login</a><br/>",
+			CLIENT_ID,
+			url.QueryEscape(APPAUTH_CODE))))
 		w.Write([]byte("</body></html>"))
 	})
 

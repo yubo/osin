@@ -136,7 +136,7 @@ func (r *Response) GetRedirectUrl() (string, error) {
 	// The stdlib URL#String() doesn't make that easy to accomplish, so build this ourselves
 	if r.RedirectInFragment {
 		u.Fragment = ""
-		redirectURI := u.String() + "#" + q.Encode()
+		redirectURI := u.String() + "?" + q.Encode()
 		return redirectURI, nil
 	}
 

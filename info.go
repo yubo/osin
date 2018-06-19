@@ -43,6 +43,12 @@ func (s *Server) HandleInfoRequest(w *Response, r *http.Request) *InfoRequest {
 		s.setErrorAndLog(w, E_INVALID_REQUEST, nil, "handle_info_request=%s", "access data is nil")
 		return nil
 	}
+
+	if ret.AccessData.IsExpiredAt(s.Now()) {
+		s.setErrorAndLog(w, E_INVALID_GRANT, nil, "handle_info_request=%s", "access data is expired")
+		return nil
+	}
+
 	if ret.AccessData.Client == nil {
 		s.setErrorAndLog(w, E_UNAUTHORIZED_CLIENT, nil, "handle_info_request=%s", "access data client is nil")
 		return nil
@@ -51,11 +57,6 @@ func (s *Server) HandleInfoRequest(w *Response, r *http.Request) *InfoRequest {
 		s.setErrorAndLog(w, E_UNAUTHORIZED_CLIENT, nil, "handle_info_request=%s", "access data client redirect uri is empty")
 		return nil
 	}
-	if ret.AccessData.IsExpiredAt(s.Now()) {
-		s.setErrorAndLog(w, E_INVALID_GRANT, nil, "handle_info_request=%s", "access data is expired")
-		return nil
-	}
-
 	return ret
 }
 
